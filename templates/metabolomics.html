@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> METABOLOMICS </title>
+    <meta charset="UTF-8">
+    <meta name ="viewport" content = "width = device-width, initial-scale = 1.0">
+    <style>
+      .container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        padding: 50px;
+      }
+
+      .box {
+        border: 2px solid #ccc;
+        padding: 40px;
+        text-align: center;
+        background-color: rgb(0,90,90);
+      }
+      @media (max-width: 768px) {
+        .container {
+          grid-template-columns: 1fr;
+        }
+      }
+      h1 {
+        text-align: center;
+        font-family: sans-serif;
+        font-size: 40px;
+        color: rgb(0,90,90);
+      }
+      a {
+      text-decoration: none; 
+      font-family: sans-serif;
+      font-size: 20px;
+      color: rgb(255,255,255); 
+    </style>
+
+  </head>
+  <body>
+    <h1>
+      METABOLOMICS DATA
+    </h1>
+  <div class = "container">
+    <div class ="box">
+      <a href = "Alzheimer_mb.html"> 
+      ALZHEIMER'S DISEASE      
+      </a>
+    </div>
+    <div class ="box">
+      <a href = "Parkinsons_mb.html"> 
+      PARKINSON'S DISEASE      
+      </a>
+    </div><div class ="box">
+      <a href = "ms_mb.html"> 
+      MULTIPLE SCLEROSIS     
+      </a>
+    </div><div class ="box">
+      <a href = "Epilepsy_mb.html"> 
+      EPILEPSY DISEASE      
+      </a>
+    </div><div class ="box">
+      <a href = "Stroke_mb.html"> 
+      BRAIN STROKE     
+      </a>
+    </div><div class ="box">
+      <a href = "als_mb.html"> 
+      AMYOTROPHIC LATERAL SCLEROSIS     
+      </a>
+    </div><div class ="box">
+      <a href = "ht_mb.html"> 
+      HUNTINGTON'S DISEASE      
+      </a>
+    </div><div class ="box">
+      <a href = "mg_mb.html"> 
+      MIGRAINE     
+      </a>
+    </div><div class ="box">
+      <a href = "cp_mb.html"> 
+      CEREBRAL PALSY      
+      </a>
+    </div><div class ="box">
+      <a href = "gb_mb.html"> 
+      GUILLAIN-BARRE SYNDROME      
+      </a>
+    </div>
+    <div class ="box">
+      <a href = "dm_mb.html"> 
+      DEMENTIA      
+      </a>
+    </div>
+    <div class ="box">
+      <a href = "pn_mb.html"> 
+      PERIPHERAL NEUROPATHY     
+      </a>
+    </div>
+  </div>  
+    <div style="text-align: center;">
+        <button onclick="window.location.href='{{ url_for('home') }}';">Back</button>
+    </div>
+
+  </body>
