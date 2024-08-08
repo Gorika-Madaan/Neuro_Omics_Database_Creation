@@ -1,24 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
+    <title>Parkinson's Genomics</title>
     <meta charset="UTF-8">
-    <title>Parkinson's Disease Genes </title>
-</head>
-<body>
-    <h1>Parkinson's Disease Genes Information</h1>
-    <table id="genesTable">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>NCBI Link</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Data rows will go here -->
-        </tbody>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th, td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: left;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Parkinson's Genomics Data</h1>
+    <table>
+      <tr>
+        <th>Gene</th>
+        <th>Description</th>
+      </tr>
+      {% for gene, description in data %}
+      <tr>
+        <td>{{ gene }}</td>
+        <td>{{ description }}</td>
+      </tr>
+      {% endfor %}
     </table>
-    <script src="script.js"></script>
-</body>
+    <div style="text-align: center;">
+      <button onclick="window.location.href='{{ url_for('genomics') }}';">Back</button>
+    </div>
+  </body>
 </html>

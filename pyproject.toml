@@ -9,6 +9,7 @@ packages = [{include = "repl_nix_multi_omics"}]
 [tool.poetry.dependencies]
 python = "^3.12"
 flask = "^3.0.3"
+spyprot = "^0.9.0"
 
 
 [build-system]

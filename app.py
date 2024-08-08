@@ -25,6 +25,20 @@ def transcriptomics():
 def metabolomics():
     return render_template('metabolomics.html')
 
+@app.route("/parkinsons_genomics")
+def parkinsons_genomics():
+    connection = sqlite3.connect('database.db')
+    cursor = connection.cursor()
+
+    # Fetch data for Parkinson's Disease
+    cursor.execute('''
+    SELECT gene, description FROM genomics_data WHERE disease = 'Parkinson\'s Disease'
+    ''')
+    data = cursor.fetchall()
+
+    connection.close()
+    return render_template('parkinsons_genomics.html', data=data)
+
 print(__name__)
 if __name__ == "__main__":
     app.run(host = '0.0.0.0', debug=True) 
