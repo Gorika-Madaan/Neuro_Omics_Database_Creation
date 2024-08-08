@@ -1,5 +1,7 @@
 from flask import Flask, render_template
 app = Flask(__name__)
+import sqlite3
+
 @app.route("/") 
 #empty route for homepage
 def home():
@@ -27,17 +29,22 @@ def metabolomics():
 
 @app.route("/parkinsons_genomics")
 def parkinsons_genomics():
-    connection = sqlite3.connect('database.db')
-    cursor = connection.cursor()
+    try:
+        connection = sqlite3.connect('database.db')
+        cursor = connection.cursor()
 
-    # Fetch data for Parkinson's Disease
-    cursor.execute('''
-    SELECT gene, description FROM genomics_data WHERE disease = 'Parkinson\'s Disease'
-    ''')
-    data = cursor.fetchall()
+        cursor.execute('''
+        SELECT gene, description FROM genomics_data WHERE disease = 'Parkinson\'s Disease'
+        ''')
+        data = cursor.fetchall()
+        connection.close()
 
-    connection.close()
-    return render_template('parkinsons_genomics.html', data=data)
+        print("Data fetched successfully:", data)  # Debugging statement
+        return render_template('parkinsons_genomics.html', data=data)
+    except Exception as e:
+        print("Error:", e)  # Print the error
+        return "An error occurred while accessing the database."
+
 
 print(__name__)
 if __name__ == "__main__":

@@ -19,7 +19,7 @@ def fetch_gene_data(disease_name, gene_symbol):
             summary = Entrez.read(handle)
             handle.close()
 
-            gene_summary = summary[0]["Summary"]
+            gene_summary = summary[0].get("Summary", "No summary available")
             return gene_summary
         else:
             return "No data found for the specified gene and disease."
@@ -29,30 +29,43 @@ def fetch_gene_data(disease_name, gene_symbol):
 
 def insert_gene_data():
     """Fetch gene data from NCBI and insert it into the SQLite database."""
-    # Connect to the SQLite database
-    connection = sqlite3.connect('database.db')
-    cursor = connection.cursor()
+    try:
+        # Connect to the SQLite database
+        connection = sqlite3.connect('database.db')
+        cursor = connection.cursor()
 
-    # List of genes and diseases to fetch data for
-    genes_and_diseases = [
-        ('Parkinson\'s Disease', 'LRRK2'),
-        ('Alzheimer\'s Disease', 'APP')
-    ]
+        # Ensure the table exists
+        cursor.execute('''
+        CREATE TABLE IF NOT EXISTS genomics_data (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            disease TEXT NOT NULL,
+            gene TEXT NOT NULL,
+            description TEXT
+        )
+        ''')
 
-    # Fetch and insert data into the database
-    for disease, gene in genes_and_diseases:
-        description = fetch_gene_data(disease, gene)
-        if description:
-            cursor.execute('''
-            INSERT INTO genomics_data (disease, gene, description)
-            VALUES (?, ?, ?)
-            ''', (disease, gene, description))
+        # List of genes and diseases to fetch data for
+        genes_and_diseases = [
+            ('Parkinson\'s Disease', 'LRRK2'),
+            ('Alzheimer\'s Disease', 'APP')
+        ]
 
-    # Commit changes and close the connection
-    connection.commit()
-    connection.close()
+        # Fetch and insert data into the database
+        for disease, gene in genes_and_diseases:
+            description = fetch_gene_data(disease, gene)
+            if description:
+                cursor.execute('''
+                INSERT INTO genomics_data (disease, gene, description)
+                VALUES (?, ?, ?)
+                ''', (disease, gene, description))
 
-    print("Gene data inserted successfully.")
+        # Commit changes and close the connection
+        connection.commit()
+        print("Gene data inserted successfully.")
+    except sqlite3.Error as e:
+        print(f"SQLite error: {e}")
+    finally:
+        connection.close()
 
 if __name__ == "__main__":
     insert_gene_data()
