@@ -9,6 +9,10 @@ def home():
 def genomics():
     return render_template('genomics.html')
 
+@app.route("/Parkinsons_genomics")
+def Parkinsons_genomics():
+    return render_template('Parkinsons_genomics.html')
+
 @app.route("/proteomics")
 def proteomics():
     return render_template('proteomics.html')
