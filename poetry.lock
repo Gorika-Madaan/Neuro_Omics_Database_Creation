@@ -612,6 +612,17 @@ tqdm = ">=4.31.1"
 wget = ">=3.0"
 
 [[package]]
+name = "sqlite3-0611"
+version = "0.0.1"
+description = "Data management package by using sqlite3."
+optional = false
+python-versions = "*"
+files = [
+    {file = "SQLite3_0611-0.0.1-py3-none-any.whl", hash = "sha256:99d3662f418e5c1a1b81b5486d829eb511e5aee329cf31df945218d2a5b4b324"},
+    {file = "SQLite3_0611-0.0.1.tar.gz", hash = "sha256:adc184137509bb30045a3be6dbf75faf918666735154d2f19dd1140d0254ddc5"},
+]
+
+[[package]]
 name = "subprocess32"
 version = "3.5.4"
 description = "A backport of the subprocess module from Python 3 for use on 2.x."
@@ -690,4 +701,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "13a89126713904eb20e199de4c11557f18f6d62ecb284ee168817f53404aef78"
+content-hash = "0d0ad31ba8eb05a0bbbdc88a9a5b1adeeb449f9cabb5027e9e2e13c6bffeacad"

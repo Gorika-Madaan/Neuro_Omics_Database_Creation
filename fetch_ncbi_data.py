@@ -1,8 +1,8 @@
-import sqlite3
 from Bio import Entrez
+import sqlite3
 
 # Initialize Entrez email (required for NCBI API access)
-Entrez.email = ""  # Replace with your email address
+Entrez.email = "allaboutbioinformatics21@gmail.com"  # Replace with your email address
 
 def fetch_gene_data(disease_name, gene_symbol):
     """Fetch gene data from NCBI for a specific disease and gene symbol."""
