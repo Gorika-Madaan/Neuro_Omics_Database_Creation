@@ -35,15 +35,16 @@ def parkinsons_genomics():
 
         # Use parameterized query to avoid syntax errors
         query = '''
-        SELECT gene, description FROM genomics_data WHERE disease = ?
+        SELECT gene_id, gene_name, location, mim, ncbi_link, description FROM genomics_data WHERE disease = ?
         '''
         cursor.execute(query, ('Parkinson\'s Disease',))
         data = cursor.fetchall()  # Fetch all rows
 
+        # Debugging statement to check if data is fetched
+        print("Data fetched successfully:", data)  
+
         # Close the database connection
         connection.close()
-
-        print("Data fetched successfully:", data)  # Debugging statement
 
         # Render the HTML template with the data
         return render_template('parkinsons_genomics.html', data=data)
@@ -51,6 +52,7 @@ def parkinsons_genomics():
         # Print and return the error if any
         print("Error:", e)
         return f"An error occurred while accessing the database: {e}"
+
 
 
 print(__name__)

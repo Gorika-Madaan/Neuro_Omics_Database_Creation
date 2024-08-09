@@ -17,19 +17,36 @@
       th {
         background-color: #f2f2f2;
       }
+      h1 {
+        text-align: center;
+        font-family: sans-serif;
+        font-size: 40px;
+        color: rgb(0,90,90);
+      }
     </style>
   </head>
   <body>
     <h1>Parkinson's Genomics Data</h1>
+
+    <p> Parkinson's disease (PD), or simply Parkinson's, is a long-term neurodegenerative disease of mainly the central nervous system that affects both the motor and non-motor systems of the body. The symptoms usually emerge slowly, and as the disease progresses, non-motor symptoms become more common. Usual symptoms include tremors, slowness of movement, rigidity, and difficulty with balance, collectively known as parkinsonism. Parkinson's disease dementia, falls and neuropsychiatric problems such as sleep abnormalities, psychosis, mood swings, or behavioral changes may arise in advanced stages as well. <a href="https://en.wikipedia.org/wiki/Parkinson%27s_disease" target="_blank">Wikipedia</a>.</p>
+
     <table>
       <tr>
-        <th>Gene</th>
+        <th>Gene ID</th>
+        <th>Gene Name</th>
+        <th>Location</th>
+        <th>MIM</th>
+        <th>NCBI Link</th>
         <th>Description</th>
       </tr>
       {% for row in data %}
       <tr>
-        <td>{{ row[0] }}</td>
+        <td>''{{ row[0] }}'</td>
         <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td>{{ row[3] }}</td>
+        <td><a href="{{ row[4] }}" target="_blank">Link</a></td>
+        <td>{{ row[5] }}</td>
       </tr>
       {% endfor %}
     </table>

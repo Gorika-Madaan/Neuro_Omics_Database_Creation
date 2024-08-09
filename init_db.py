@@ -1,52 +1,63 @@
 import sqlite3
 
-try:
-    # Connect to the SQLite database (or create it if it doesn't exist)
-    connection = sqlite3.connect('database.db')
+def initialize_database():
+    try:
+        # Connect to the SQLite database (or create it if it doesn't exist)
+        connection = sqlite3.connect('database.db')
+        cursor = connection.cursor()
 
-    # Create a cursor object to interact with the database
-    cursor = connection.cursor()
+        print("Connected to the database.")
 
-    # Create a table for genomics data if it doesn't exist
-    cursor.execute('''
-    CREATE TABLE IF NOT EXISTS genomics_data (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        disease TEXT NOT NULL,
-        gene TEXT NOT NULL,
-        description TEXT
-    )
-    ''')
+        # Create or alter the table for genomics data to include additional columns
+        print("Creating or ensuring the 'genomics_data' table exists...")
+        cursor.execute('''
+        CREATE TABLE IF NOT EXISTS genomics_data (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            disease TEXT NOT NULL,
+            gene_id TEXT,
+            gene_name TEXT,
+            location TEXT,
+            mim TEXT,
+            ncbi_link TEXT,
+            description TEXT
+        )
+        ''')
+        print("Table creation or alteration completed.")
 
-    # Insert sample data (optional)
-    sample_data = [
-        ('Parkinson\'s Disease', 'Gene1', 'Description of Gene1'),
-        ('Parkinson\'s Disease', 'Gene2', 'Description of Gene2')
-    ]
+        # Commit the changes
+        connection.commit()
+        print("Changes committed to the database.")
 
-    # Check if data already exists to avoid duplicates
-    cursor.executemany('''
-    INSERT INTO genomics_data (disease, gene, description)
-    SELECT ?, ?, ?
-    WHERE NOT EXISTS (
-        SELECT 1 FROM genomics_data WHERE disease = ? AND gene = ?
-    )
-    ''', [(disease, gene, desc, disease, gene) for disease, gene, desc in sample_data])
+        # Retrieve and display the schema of the genomics_data table
+        print("Retrieving schema for 'genomics_data' table...")
+        cursor.execute("PRAGMA table_info(genomics_data);")
+        schema = cursor.fetchall()
+        if schema:
+            print("Schema for 'genomics_data':")
+            for column in schema:
+                print(f"Column Name: {column[1]}, Data Type: {column[2]}, Not Null: {column[3]}, Default Value: {column[4]}")
+        else:
+            print("No schema found. The table might not exist or be accessible.")
 
-    # Commit the changes
-    connection.commit()
+        # Retrieve and display the data from the genomics_data table
+        print("Retrieving data from 'genomics_data' table...")
+        cursor.execute('SELECT * FROM genomics_data')
+        rows = cursor.fetchall()
+        if rows:
+            print("Data in 'genomics_data':")
+            for row in rows:
+                print(row)
+        else:
+            print("No data found in 'genomics_data'.")
 
-    # Retrieve and display the data
-    cursor.execute('SELECT * FROM genomics_data')
-    rows = cursor.fetchall()
-    for row in rows:
-        print(row)
+    except sqlite3.Error as e:
+        print(f"SQLite error: {e}")
 
-except sqlite3.Error as e:
-    print(f"SQLite error: {e}")
+    finally:
+        # Close the connection
+        if connection:
+            connection.close()
+            print("Database connection closed.")
 
-finally:
-    # Close the connection
-    if connection:
-        connection.close()
-
-print("Database initialized with sample data.")
+if __name__ == "__main__":
+    initialize_database()
