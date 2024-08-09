@@ -1,6 +1,8 @@
 from flask import Flask, render_template
-app = Flask(__name__)
 import sqlite3
+
+app = Flask(__name__)
+
 
 @app.route("/") 
 #empty route for homepage
@@ -11,9 +13,6 @@ def home():
 def genomics():
     return render_template('genomics.html')
 
-@app.route("/Parkinsons_genomics")
-def Parkinsons_genomics():
-    return render_template('Parkinsons_genomics.html')
 
 @app.route("/proteomics")
 def proteomics():
@@ -30,20 +29,28 @@ def metabolomics():
 @app.route("/parkinsons_genomics")
 def parkinsons_genomics():
     try:
+        # Connect to the SQLite database
         connection = sqlite3.connect('database.db')
         cursor = connection.cursor()
 
-        cursor.execute('''
-        SELECT gene, description FROM genomics_data WHERE disease = 'Parkinson\'s Disease'
-        ''')
-        data = cursor.fetchall()
+        # Use parameterized query to avoid syntax errors
+        query = '''
+        SELECT gene, description FROM genomics_data WHERE disease = ?
+        '''
+        cursor.execute(query, ('Parkinson\'s Disease',))
+        data = cursor.fetchall()  # Fetch all rows
+
+        # Close the database connection
         connection.close()
 
         print("Data fetched successfully:", data)  # Debugging statement
+
+        # Render the HTML template with the data
         return render_template('parkinsons_genomics.html', data=data)
     except Exception as e:
-        print("Error:", e)  # Print the error
-        return "An error occurred while accessing the database."
+        # Print and return the error if any
+        print("Error:", e)
+        return f"An error occurred while accessing the database: {e}"
 
 
 print(__name__)

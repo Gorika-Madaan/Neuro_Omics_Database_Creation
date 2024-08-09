@@ -3,9 +3,17 @@
     "fetch_ncbi_data.py": [
       {
         "id": "57acb1e3-8fe6-4d42-8a58-4cbb3672dfca",
+        "line": 1,
+        "version": 56,
+        "index": 0
+      }
+    ],
+    "init_db.py": [
+      {
+        "id": "207eb089-663d-471c-86e9-effe5a6286dd",
         "line": 13,
-        "version": 54,
-        "index": 490
+        "version": 3,
+        "index": 373
       }
     ]
   }

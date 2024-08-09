@@ -26,10 +26,10 @@
         <th>Gene</th>
         <th>Description</th>
       </tr>
-      {% for gene, description in data %}
+      {% for row in data %}
       <tr>
-        <td>{{ gene }}</td>
-        <td>{{ description }}</td>
+        <td>{{ row[0] }}</td>
+        <td>{{ row[1] }}</td>
       </tr>
       {% endfor %}
     </table>

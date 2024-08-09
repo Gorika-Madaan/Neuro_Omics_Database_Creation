@@ -7,14 +7,18 @@ Entrez.email = "allaboutbioinformatics21@gmail.com"  # Replace with your email a
 def fetch_gene_data(disease_name, gene_symbol):
     """Fetch gene data from NCBI for a specific disease and gene symbol."""
     try:
+        print(f"Fetching data for {gene_symbol} related to {disease_name}")
         # Search for gene information in NCBI
         handle = Entrez.esearch(db="gene", term=f"{gene_symbol}[sym] AND {disease_name}")
         record = Entrez.read(handle)
         handle.close()
 
+        print("Record:", record)
+
         # If we have results, fetch the summary
         if record["IdList"]:
             gene_id = record["IdList"][0]
+            print(f"Found Gene ID: {gene_id}")
             handle = Entrez.esummary(db="gene", id=gene_id)
             summary = Entrez.read(handle)
             handle.close()
@@ -22,6 +26,7 @@ def fetch_gene_data(disease_name, gene_symbol):
             gene_summary = summary[0].get("Summary", "No summary available")
             return gene_summary
         else:
+            print("No data found for the specified gene and disease.")
             return "No data found for the specified gene and disease."
     except Exception as e:
         print(f"Error fetching data: {e}")
