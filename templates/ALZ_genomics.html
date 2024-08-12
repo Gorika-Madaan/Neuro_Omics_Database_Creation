@@ -50,6 +50,74 @@
            color: rgb(0,90,90);
           text-align: center;
         }
+        .card {
+        position: relative;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 15px;
+        padding: 15px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        }
+
+        .card-title {
+            margin-bottom: 10px;
+            font-family: sans-serif;
+            font-size: 20px;
+            color: rgb(0,35,98);
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            font-family: sans-serif;
+            margin-bottom: 10px;
+            color: rgb(111,35,98);
+        }
+
+        .card-text {
+            margin-bottom: 10px;
+            color: rgb(111, 35, 218);
+        }
+
+        .card-link {
+            color: #1a73e8;
+            font-weight: bold;
+        }
+        .circle {
+            position: absolute;
+            top: 50px;
+            right: 10px;
+            width: 70px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #003366; /* Dark blue */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white; /* White text */
+            font-weight: bold;
+            text-align: center;
+            text-decoration: none;
+        }
+
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 10px;
+            }
+
+            .card-title {
+                font-size: 18px;
+                
+            }
+
+            .card-subtitle,
+            .card-text {
+                font-size: 13px;
+            }
     </style>
    
 </head>
@@ -70,9 +138,25 @@
 
 
     <h2> GENES INTERACTION </h2>
-    <div class = "image2">
+    <figure class = "image2">
         <img src = "https://067776f3-65d3-4935-822a-bc05d9ff15a6-00-260635pwdizjv.pike.replit.dev/static/alz.png", class = "image2", alt = "image2">
+        <figcaption><a href = https://string-db.org/cgi/network?taskId=bqEfiViP2Q0a&sessionId=bfN7XXPyGHWK>String Network : DOID:10652</a></figcaption>
     </div>
-</div>
+
+    <h2> GENES INFORMATION</h2>
+    {% for gene in genes %}
+    <div class = "card">
+        <div class="card-body">
+            <h5 class="card-title">{{ gene[1] }} - {{ gene[2] }}</h5>
+            <h6 class="card-subtitle">Location: {{ gene[10] }}</h6>
+            <h6 class="card-subtitle">Chromosome Number: {{ gene[9] }}</h6>
+            <h6 class="card-subtitle"> Nucleotide Seq GenBank ID: {{ gene[11] }}</h6>
+            <h6 class="card-subtitle">Expression Region: {{ gene[12] }}</h6>
+            <h6 class="card-subtitle">Other names: {{ gene[3] }},{{ gene[4] }}, {{ gene[5] }},{{ gene[6] }},{{ gene[7] }}</h6>
+             <p class = "card-text" >Description:{{ gene[8] }}</p>
+        </div>
+        <a href="https://www.ncbi.nlm.nih.gov/gene/?term={{ gene[1] }}" class="circle" target="_blank">NCBI</a>
+        </div>
+        {% endfor %}
 </body>
     

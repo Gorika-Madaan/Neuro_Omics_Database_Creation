@@ -54,7 +54,7 @@ def close_connection(exception):
 def ALZ_genomics():
     db = get_db('Genomics_db')
     cursor = db.cursor()
-    cursor.execute("SELECT gene_symbol, gene_name, location, description FROM ALZHEIMER")
+    cursor.execute("SELECT * FROM ALZHEIMER")
     genes = cursor.fetchall()
     return render_template('ALZ_genomics.html', genes=genes)
 
