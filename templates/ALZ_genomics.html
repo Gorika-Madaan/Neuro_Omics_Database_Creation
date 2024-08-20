@@ -51,34 +51,37 @@
           text-align: center;
         }
         .card {
-        position: relative;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        margin-bottom: 15px;
-        padding: 15px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+            position: relative;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgb(255,255,255); 
         }
 
         .card-title {
             margin-bottom: 10px;
             font-family: sans-serif;
             font-size: 20px;
-            color: rgb(0,35,98);
+            color: rgb(0,90,100);
         }
 
         .card-subtitle {
             font-size: 14px;
             font-family: sans-serif;
             margin-bottom: 10px;
-            color: rgb(111,35,98);
+            color: #000080;
         }
 
         .card-text {
             margin-bottom: 10px;
-            color: rgb(111, 35, 218);
+            color: rgb(0,0,0);
+            font-size: 14px;
+            font-family: sans-serif
         }
 
         .card-link {
@@ -92,7 +95,7 @@
             width: 70px;
             height: 40px;
             border-radius: 50%;
-            background-color: #003366; /* Dark blue */
+            background-color: rgb(0,90,100) ;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -148,12 +151,16 @@
     <div class = "card">
         <div class="card-body">
             <h5 class="card-title">{{ gene[1] }} - {{ gene[2] }}</h5>
-            <h6 class="card-subtitle">Location: {{ gene[10] }}</h6>
-            <h6 class="card-subtitle">Chromosome Number: {{ gene[9] }}</h6>
-            <h6 class="card-subtitle"> Nucleotide Seq GenBank ID: {{ gene[11] }}</h6>
-            <h6 class="card-subtitle">Expression Region: {{ gene[12] }}</h6>
-            <h6 class="card-subtitle">Other names: {{ gene[3] }},{{ gene[4] }}, {{ gene[5] }},{{ gene[6] }},{{ gene[7] }}</h6>
-             <p class = "card-text" >Description:{{ gene[8] }}</p>
+            
+            <h6 class="card-subtitle">Location :  <span style="color: black;">  {{ gene[10] }}</span></h6>
+            <h6 class="card-subtitle">Chromosome Number : <span style="color: black;"> {{ gene[9] }}</span></h6>
+            <h6 class="card-subtitle"> Nucleotide Seq GenBank ID : <span style="color: black;"> {{ gene[11] }}</span></h6>
+            <h6 class="card-subtitle">Expression Region : <span style="color: black;"> {{ gene[12] }}</span></h6>
+            <h6 class="card-subtitle">Other names : <span style="color: black;"> {{ gene[3] }},{{ gene[4] }}, {{ gene[5] }},{{ gene[6] }},{{ gene[7] }}</span></h6>
+        
+             <p class = "card-text" > <span style="color: #000080 ; font-weight: bold;">Description : </span> {{ gene[8] }}</p>
+        
+        <a href="{{ gene[16] }}" class="card-subtitle" target="_blank">More..</a>
         </div>
         <a href="https://www.ncbi.nlm.nih.gov/gene/?term={{ gene[1] }}" class="circle" target="_blank">NCBI</a>
         </div>
